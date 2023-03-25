@@ -1,13 +1,8 @@
 package kz.khairollayev.storeauth.model;
 
 import jakarta.persistence.*;
-import kz.khairollayev.storeauth.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.TypeAlias;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
