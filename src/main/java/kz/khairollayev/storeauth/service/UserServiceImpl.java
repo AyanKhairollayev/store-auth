@@ -6,6 +6,7 @@ import kz.khairollayev.storeauth.model.User;
 import kz.khairollayev.storeauth.repository.RoleRepository;
 import kz.khairollayev.storeauth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String login(UserDto dto) {
+    public ResponseEntity<?> login(UserDto dto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
         );
@@ -44,10 +45,10 @@ public class UserServiceImpl implements UserService{
 
         if(userDetails != null) {
             String token = jwtUtils.generateToken(userDetails);
-            return token;
+            return ResponseEntity.ok("token created: " + token);
         }
 
-        return "not auth";
+        return ResponseEntity.badRequest().body("Something wrong with authentication");
     }
 
     @Override
